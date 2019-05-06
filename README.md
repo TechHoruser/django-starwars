@@ -9,3 +9,21 @@ docker exec -it swa bash
 mysql -uroot -pC00L
 ```
 
+
+### Creando el entorno virtual de python
+```
+virtualenv dev_ENV
+source dev_ENV/bin/activate
+
+pip install -r requirements
+
+deactivate
+
+```
+
+```
+django-admin startproject starwars
+
+cd starwars
+python manage.py runserver
+```
