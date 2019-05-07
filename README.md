@@ -27,3 +27,20 @@ django-admin startproject starwars
 cd starwars
 python manage.py runserver
 ```
+
+#### mysqlclient requirement
+Es necesario para el motor de BBDD establecido (mariadb), el mysql-client instalado en la máquina. En mi caso (macOS)
+```
+brew install mysql-client
+# mysql-client is not on the `PATH` by default
+export PATH="/usr/local/opt/mysql-client/bin:$PATH"
+```
+
+##### Creación esquema DDBB
+```
+docker exec -it swa bash
+mysql -uroot -pC00L
+create schema starwars;
+```
+
+

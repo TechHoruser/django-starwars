@@ -73,10 +73,16 @@ WSGI_APPLICATION = 'starwars.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 
+# The port is set to run docker image (show README.md)
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'starwars',
+        'USER': 'root',
+        'PASSWORD': 'C00L',
+        'HOST': '127.0.0.1',
+        'PORT': '3301',
     }
 }
 
