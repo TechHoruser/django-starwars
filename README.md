@@ -28,6 +28,13 @@ cd starwars
 python manage.py runserver
 ```
 
+### Export configuración DJango
+En la raiz del proyecto:
+```
+cd code/starwars
+export DJANGO_SETTINGS_MODULE=starwars.settings
+```
+
 #### mysqlclient requirement
 Es necesario para el motor de BBDD establecido (mariadb), el mysql-client instalado en la máquina. En mi caso (macOS)
 ```
@@ -43,4 +50,10 @@ mysql -uroot -pC00L
 create schema starwars;
 ```
 
+##### Creación migraciones
+Esto solo es necesario durante el desarrollo
+```
+python manage.py makemigrations starwarsapp
+python manage.py migrate
+```
 
