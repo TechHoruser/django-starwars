@@ -1,0 +1,12 @@
+{% extends 'layout.html' %}
+
+{% load static %}
+
+{% block content %}
+    <br>
+    <a href="/"><button type="button" class="btn btn-primary">Index</button></a>
+    <h4>{{ film.name }}</h4>
+    <p><b>Director: </b>{{ film.director }}</p>
+    <p><b>Opening: </b>{{ film.opening }}</p>
+
+{% endblock %}
