@@ -1,5 +1,12 @@
 from django.shortcuts import render
+from .models import Person
 
 
 def index(request):
-    return render(request, 'index.html')
+    people = Person.objects.all()[:8]
+
+    return render(
+        request,
+        'index.html',
+        {'people': people}
+    )

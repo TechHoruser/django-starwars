@@ -1,11 +1,52 @@
 {% extends 'layout.html' %}
 
+{% load static %}
+
 {% block content %}
 <br>
 <input type="text" id="film-list-input" onkeyup="searchFilm()" onfocusout="$('#film-list').hide();" onfocus="$('#film-list').show();" placeholder="Search films">
 
 <ul id="film-list">
 </ul>
+
+{% with people|first as first_person %}
+<div class="bd-example">
+  <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
+    <ol class="carousel-indicators">
+        {% for person in people %}
+            {% if person.id is first_person.id %}
+            <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
+            {% else %}
+            <li data-target="#carouselExampleCaptions" data-slide-to="{{ forloop.counter0 }}"></li>
+            {% endif %}
+        {% endfor %}
+    </ol>
+    <div class="carousel-inner">
+        {% for person in people %}
+            {% if person.id is first_person.id %}
+            <div class="carousel-item active">
+            {% else %}
+            <div class="carousel-item">
+            {% endif %}
+
+            <img src="{% static 'images/people/' %}{{ person.images.all.0.hash }}.jpg" class="d-block w-100" alt="...">
+            <div class="carousel-caption d-none d-md-block">
+                <h5>{{ person.name }}</h5>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#carouselExampleCaptions" role="button" data-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="sr-only">Next</span>
+    </a>
+  </div>
+</div>
+{% endwith %}
 
 {% endblock %}
 
