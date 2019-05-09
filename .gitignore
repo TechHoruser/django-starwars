@@ -1,2 +1,8 @@
 
 \.idea/
+
+code/dev_ENV/
+
+*\.DS_Store
+
+code/starwars/starwarsapp/static/images/
