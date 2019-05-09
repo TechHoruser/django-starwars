@@ -5,7 +5,7 @@
 {% block content %}
 <br>
 <div id="film-search-section">
-    <input type="text" id="film-list-input" onkeyup="searchFilm()" onfocusout="$('#film-list').hide();" onfocus="$('#film-list').show();" placeholder="Search films">
+    <input type="text" id="film-list-input" onkeyup="searchFilm();" onfocus="$('#film-list').show();" placeholder="Search films">
 
     <ul id="film-list">
     </ul>
@@ -24,17 +24,12 @@
     </ol>
     <div class="carousel-inner">
         {% for person in people_list %}
-            {% if person.id is first_person.id %}
-            <div class="carousel-item active">
-            {% else %}
-            <div class="carousel-item">
-            {% endif %}
-
-            <img src="{% static 'images/people/' %}{{ person.images.all.0.hash }}.jpg" class="d-block w-100" alt="...">
-            <div class="carousel-caption d-none d-md-block">
-                <h5>{{ person.name }}</h5>
+            <div class="carousel-item{% if person.id is first_person.id %} active{% endif %}">
+                <img src="{% static 'images/people/' %}{{ person.images.all.0.hash }}.jpg" class="d-block w-100" alt="">
+                <div class="carousel-caption d-none d-md-block">
+                    <h5>{{ person.name }}</h5>
+                </div>
             </div>
-        </div>
         {% endfor %}
     </div>
     <a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev">
@@ -47,16 +42,16 @@
     </a>
   </div>
 </div>
+{% endwith %}
 
 <div id="bread-cums-section">
     <h3>BreadCums</h3>
     <ul >
         {% for bread_cum in bread_cums_list %}
-            <li>{{ bread_cum }}</li>
+            <li><a href="{{ bread_cum }}">{{ request.META.HTTP_HOST }}{{ bread_cum }}</a></li>
         {% endfor %}
     </ul>
 </div>
-{% endwith %}
 
 {% endblock %}
 
@@ -80,13 +75,25 @@ function reloadFilms(name) {
     });
 }
 
+$(document).mouseup(function(e)
+{
+    var container = $("#film-search-section");
+
+    // if the target of the click isn't the container nor a descendant of the container
+    if (!container.is(e.target) && container.has(e.target).length === 0)
+    {
+        $("#film-list").hide();
+    }
+});
+
 function refreshFilmList(films) {
     $('#film-list li').remove();
     var list = $('#film-list');
 
     jQuery.each(films, function() {
         var filmname = this.fields.name;
-        list.append('<li><a href="#">'+filmname+'</a></li>');
+        var id = this.pk;
+        list.append('<li><a href="/film/'+id+'">'+filmname+'</a></li>');
     });
 }
 
