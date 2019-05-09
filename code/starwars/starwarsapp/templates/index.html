@@ -4,11 +4,12 @@
 
 {% block content %}
 <br>
-<input type="text" id="film-list-input" onkeyup="searchFilm()" onfocusout="$('#film-list').hide();" onfocus="$('#film-list').show();" placeholder="Search films">
+<div id="film-search-section">
+    <input type="text" id="film-list-input" onkeyup="searchFilm()" onfocusout="$('#film-list').hide();" onfocus="$('#film-list').show();" placeholder="Search films">
 
-<ul id="film-list">
-</ul>
-
+    <ul id="film-list">
+    </ul>
+</div>
 {% with people|first as first_person %}
 <div class="bd-example">
   <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
