@@ -10,11 +10,11 @@
     <ul id="film-list">
     </ul>
 </div>
-{% with people|first as first_person %}
+{% with people_list|first as first_person %}
 <div class="bd-example">
   <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
     <ol class="carousel-indicators">
-        {% for person in people %}
+        {% for person in people_list %}
             {% if person.id is first_person.id %}
             <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
             {% else %}
@@ -23,7 +23,7 @@
         {% endfor %}
     </ol>
     <div class="carousel-inner">
-        {% for person in people %}
+        {% for person in people_list %}
             {% if person.id is first_person.id %}
             <div class="carousel-item active">
             {% else %}
@@ -46,6 +46,15 @@
       <span class="sr-only">Next</span>
     </a>
   </div>
+</div>
+
+<div id="bread-cums-section">
+    <h3>BreadCums</h3>
+    <ul >
+        {% for bread_cum in bread_cums_list %}
+            <li>{{ bread_cum }}</li>
+        {% endfor %}
+    </ul>
 </div>
 {% endwith %}
 
