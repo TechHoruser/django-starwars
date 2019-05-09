@@ -1,0 +1,64 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<br>
+<input type="text" id="film-list-input" onkeyup="searchFilm()" onfocusout="$('#film-list').hide();" onfocus="$('#film-list').show();" placeholder="Search films">
+
+<ul id="film-list">
+</ul>
+
+{% endblock %}
+
+{% block scriptsection %}
+<script>
+function reloadFilms(name) {
+    let host = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '');
+
+    $.ajax({
+        url: host + '/api/film',
+        type: "get",
+        data: {
+            name: name,
+        },
+        success: function (response) {
+            refreshFilmList(response)
+        },
+        error: function (xhr) {
+            console.log('KO');
+        }
+    });
+}
+
+function refreshFilmList(films) {
+    $('#film-list li').remove();
+    var list = $('#film-list');
+
+    jQuery.each(films, function() {
+        var filmname = this.fields.name;
+        list.append('<li><a href="#">'+filmname+'</a></li>');
+    });
+}
+
+function searchFilm() {
+  // Declare variables
+  var input, filter, ul, li, a, i, txtValue;
+  input = document.getElementById('film-list-input');
+  filter = input.value.toUpperCase();
+  reloadFilms(filter);
+  ul = document.getElementById("film-list");
+  li = ul.getElementsByTagName('li');
+
+  // Loop through all list items, and hide those who don't match the search query
+  for (i = 0; i < li.length; i++) {
+    a = li[i].getElementsByTagName("a")[0];
+    txtValue = a.textContent || a.innerText;
+    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+      li[i].style.display = "";
+    } else {
+      li[i].style.display = "none";
+    }
+  }
+}
+
+</script>
+{% endblock %}

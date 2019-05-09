@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <style>
+        #film-list-input {
+          background-image: url('/css/searchicon.png'); /* Add a search icon to input */
+          background-position: 10px 12px; /* Position the search icon */
+          background-repeat: no-repeat; /* Do not repeat the icon image */
+          width: 100%; /* Full-width */
+          font-size: 16px; /* Increase font-size */
+          padding: 12px 20px 12px 40px; /* Add some padding */
+          border: 1px solid #ddd; /* Add a grey border */
+          margin-bottom: 12px; /* Add some space below the input */
+        }
+
+        #film-list {
+          /* Remove default list styling */
+          list-style-type: none;
+          padding: 0;
+          margin: 0;
+        }
+
+        #film-list li a {
+          border: 1px solid #ddd; /* Add a border to all links */
+          margin-top: -1px; /* Prevent double borders */
+          background-color: #f6f6f6; /* Grey background color */
+          padding: 12px; /* Add some padding */
+          text-decoration: none; /* Remove default text underline */
+          font-size: 18px; /* Increase the font-size */
+          color: black; /* Add a black text color */
+          display: block; /* Make it into a block element to fill the whole list */
+        }
+
+        #film-list li a:hover:not(.header) {
+          background-color: #eee; /* Add a hover effect to all links, except for headers */
+        }
+    </style>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    {% block extrastatic %}
+    {% endblock %}
+
+    <title>Star Wars</title>
+</head>
+<body>
+<div class="container">
+    {% block content %}
+    {% endblock %}
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+    {% block scriptsection %}
+    {% endblock %}
+</div>
+</body>
+</html>
