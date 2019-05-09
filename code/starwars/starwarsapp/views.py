@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import Person
+from .models import Person, Film
 
 
 LAST_URIS = 'last_uris'
@@ -17,6 +17,20 @@ def index(request):
         {
             'people_list': people_list,
             'bread_cums_list': bread_cums_list,
+        }
+    )
+
+
+def show_film(request, id):
+    film = Film.objects.get(id=id)
+
+    bread_cums(request)
+
+    return render(
+        request,
+        'film.html',
+        {
+            'film': film,
         }
     )
 

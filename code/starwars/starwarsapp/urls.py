@@ -5,5 +5,7 @@ from . import api
 
 urlpatterns = [
     path('', views.index, name='index'),
-    path('api/film', api.get_films, name='get_films'),
+    path('film/<int:id>/', views.show_film, name='show_film'),
+
+    path('api/film/', api.get_films, name='api_get_films'),
 ]
