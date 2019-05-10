@@ -1,0 +1,122 @@
+{% extends 'layout.html' %}
+
+{% load static %}
+
+{% block content %}
+<br>
+<div id="film-search-section">
+    <input type="text" id="film-list-input" onkeyup="searchFilm();" onfocus="$('#film-list').show();" placeholder="Search films">
+
+    <ul id="film-list">
+    </ul>
+</div>
+{% with people_list|first as first_person %}
+<div class="bd-example">
+  <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
+    <ol class="carousel-indicators">
+        {% for person in people_list %}
+            {% if person.id is first_person.id %}
+            <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
+            {% else %}
+            <li data-target="#carouselExampleCaptions" data-slide-to="{{ forloop.counter0 }}"></li>
+            {% endif %}
+        {% endfor %}
+    </ol>
+    <div class="carousel-inner">
+        {% for person in people_list %}
+            <div class="carousel-item{% if person.id is first_person.id %} active{% endif %}">
+                <img src="{% static 'images/people/' %}{{ person.images.all.0.hash }}.jpg" class="d-block w-100" alt="">
+                <div class="carousel-caption d-none d-md-block">
+                    <h5>{{ person.name }}</h5>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    <a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#carouselExampleCaptions" role="button" data-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="sr-only">Next</span>
+    </a>
+  </div>
+</div>
+{% endwith %}
+
+<div id="bread-cums-section">
+    <h3>BreadCums</h3>
+    <ul >
+        {% for bread_cum in bread_cums_list %}
+            <li><a href="{{ bread_cum }}">{{ request.META.HTTP_HOST }}{{ bread_cum }}</a></li>
+        {% endfor %}
+    </ul>
+</div>
+
+{% endblock %}
+
+{% block scriptsection %}
+<script>
+function reloadFilms(name) {
+    let host = location.protocol + '//' + location.hostname + (location.port ? ':' + location.port : '');
+
+    $.ajax({
+        url: host + '/api/film',
+        type: "get",
+        data: {
+            name: name,
+        },
+        success: function (response) {
+            refreshFilmList(response)
+        },
+        error: function (xhr) {
+            console.log('KO');
+        }
+    });
+}
+
+$(document).mouseup(function(e)
+{
+    var container = $("#film-search-section");
+
+    // if the target of the click isn't the container nor a descendant of the container
+    if (!container.is(e.target) && container.has(e.target).length === 0)
+    {
+        $("#film-list").hide();
+    }
+});
+
+function refreshFilmList(films) {
+    $('#film-list li').remove();
+    var list = $('#film-list');
+
+    jQuery.each(films, function() {
+        var filmname = this.fields.name;
+        var id = this.pk;
+        list.append('<li><a href="/film/'+id+'">'+filmname+'</a></li>');
+    });
+}
+
+function searchFilm() {
+  // Declare variables
+  var input, filter, ul, li, a, i, txtValue;
+  input = document.getElementById('film-list-input');
+  filter = input.value.toUpperCase();
+  reloadFilms(filter);
+  ul = document.getElementById("film-list");
+  li = ul.getElementsByTagName('li');
+
+  // Loop through all list items, and hide those who don't match the search query
+  for (i = 0; i < li.length; i++) {
+    a = li[i].getElementsByTagName("a")[0];
+    txtValue = a.textContent || a.innerText;
+    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+      li[i].style.display = "";
+    } else {
+      li[i].style.display = "none";
+    }
+  }
+}
+
+</script>
+{% endblock %}
