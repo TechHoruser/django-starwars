@@ -57,3 +57,12 @@ python manage.py makemigrations starwarsapp
 python manage.py migrate
 ```
 
+### Cargar elementos en BBDD
+Realizar un import en la BBDD del script ubicado en:
+>data/data.sql
+
+### Imágenes de personajes
+Las imagenes de personajes hay que descomprimirlas en el directorio de státicos de modo que los jpg se encuentren en:
+>code/starwars/starwarsapp/static/images/peopple/____
+
+
